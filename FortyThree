@@ -1,0 +1,63 @@
+/*
+ * Game in which player rolls two standard dice
+ * with the goal of reaching 43 or more.
+ * If total is 10, 20, 30, or 40, player loses.
+ */
+import java.util.Scanner;
+public class FortyThree {
+	public static void main (String[] args) {
+		int NUM_FACES = 6; 
+		//Number of faces on die
+		int count = 0;
+		//Counts number of turns
+		int maxCount = 6;
+		//Max number of turns in game
+		int sum = 0;
+		//Total of numbers rolled
+		String ans = "";
+		Scanner input = new Scanner(System.in);
+		System.out.println("Let's play 43!");
+		do {
+			int roll1 = (int)((Math.random() * NUM_FACES) + 1);
+			int roll2 = (int)((Math.random() * NUM_FACES) + 1);
+			//Rolls 2 random numbers
+			count++;
+			sum += roll1 + roll2;
+			System.out.println("Roll #" + count 
+			+ ": " + roll1 + " " + roll2
+			+ " Your total is: " + sum);
+			//Roll # increases, rolled numbers are added
+			if(roll1 == roll2) {
+				System.out.println("Doubles! Roll again.");
+				maxCount = maxCount + 1;
+			}
+			//Doubles means another roll, count must increase
+			if(sum == 10 || sum == 20
+			|| sum == 30 || sum == 40) {
+				System.out.println("You lose!");
+				System.out.println("Do you want to play again? Yes or No?");
+				ans = input.nextLine();
+				count = 0;
+				sum = 0;
+			}
+			/*If user gets 10, 20, 30, or 40, they lose
+			 *System asks if user wants to play again,
+			 *Resets count and sum
+			 */
+			if(sum >= 43) {
+				System.out.println("Congrats, you win!");
+				System.out.println("Do you want to play again? Yes or No?");
+				ans = input.nextLine();
+				count = 0;
+				sum = 0;
+			}
+			/*If user gets 43 or more, they win
+			 *System asks if user wants to play again,
+			 *Resets count and sum
+			 */
+		} while(count < maxCount && !ans.equalsIgnoreCase("No"));
+		/*Do while loop, runs program until player says No
+		 *Or until number of counts run out
+		 */
+	}
+}
